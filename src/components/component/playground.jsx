@@ -7,36 +7,65 @@ import { ResponsiveBar } from "@nivo/bar"
 import { ResponsivePie } from "@nivo/pie"
 
 export function Playground() {
-
+    const [pageName, setPageName] = useState("Income");
 
 
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
             <div className="bg-gray-100 dark:bg-gray-800 px-4 py-6">
                 <div className="flex h-full flex-col gap-6">
-                    <div className="flex items-center gap-2 ml-6" href="#">
+                    <div className="flex items-center gap-2 ml-6">
                         <WalletIcon className="h-6 w-6" />
                         <span className="text-lg font-semibold">Expense Tracker</span>
                     </div>
                     <nav className="flex flex-col gap-2">
-                        <Button variant="ghost"
-                            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
-                            href="#">
-                            <DollarSignIcon className="h-4 w-4" />
-                            Income
-                        </Button>
-                        <Button variant="ghost"
-                            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
-                            href="#">
-                            <ReceiptIcon className="h-4 w-4" />
-                            Expenses
-                        </Button>
-                        <Button variant="ghost"
-                            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
-                            href="#">
-                            <BarChartIcon className="h-4 w-4" />
-                            Reports
-                        </Button>
+                        {pageName !== "Income" ? (
+                            <Button variant="ghost" onClick={() => setPageName("Income")}
+                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
+                            >
+                                <DollarSignIcon className="h-4 w-4" />
+                                Income
+                            </Button>
+                        ) : (
+                            <Button variant="outline" onClick={() => setPageName("Income")}
+                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
+                            >
+                                <DollarSignIcon className="h-4 w-4" />
+                                Income
+                            </Button>)}
+                        {pageName !== "Expenses" ?
+                            (
+                                <Button variant="ghost" onClick={() => setPageName("Expenses")}
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
+                                >
+                                    <ReceiptIcon className="h-4 w-4" />
+                                    Expenses
+                                </Button>) :
+                            (
+                                <Button variant="outline" onClick={() => setPageName("Expenses")}
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
+                                >
+                                    <ReceiptIcon className="h-4 w-4" />
+                                    Expenses
+                                </Button>
+                            )}
+                        {pageName !== "Reports" ?
+                            (
+                                <Button variant="ghost" onClick={() => setPageName("Reports")}
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
+                                >
+                                    <BarChartIcon className="h-4 w-4" />
+                                    Reports
+                                </Button>
+                            ) :
+                            (
+                                <Button variant="outline" onClick={() => setPageName("Reports")}
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
+                                >
+                                    <BarChartIcon className="h-4 w-4" />
+                                    Reports
+                                </Button>
+                            )}
                     </nav>
                 </div>
             </div>
@@ -51,129 +80,134 @@ export function Playground() {
                     </div>
                 </header>
                 <main className="flex-1 overflow-auto p-6">
-                    <div className="grid gap-6">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Total Income</CardTitle>
-                                <CardDescription>All income transactions for the current month.</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="text-4xl font-bold">$</div>
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Add Income</CardTitle>
-                                <CardDescription>Record a new income transaction.</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <form>
-                                    <div className="grid gap-4">
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="space-y-2">
-                                                <Label htmlFor="date">Date</Label>
-                                                <Input id="date" name="date" required type="date" />
+                    {pageName === "Income" ?
+                        (
+                            <div className="grid gap-6">
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle>Total Income</CardTitle>
+                                        <CardDescription>All income transactions for the current month.</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <div className="text-4xl font-bold">$</div>
+                                    </CardContent>
+                                </Card>
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle>Add Income</CardTitle>
+                                        <CardDescription>Record a new income transaction.</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <form>
+                                            <div className="grid gap-4">
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor="date">Date</Label>
+                                                        <Input id="date" name="date" required type="date" />
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor="category">Category</Label>
+                                                        <Input id="category" name="category" required type="text" />
+                                                    </div>
+                                                </div>
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor="amount">Amount</Label>
+                                                        <Input id="amount" name="amount" required type="number" />
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor="notes">Notes</Label>
+                                                        <Input id="notes" name="notes" type="text" />
+                                                    </div>
+                                                </div>
+                                                <Button className="justify-self-end" type="submit">
+                                                    Add Income
+                                                </Button>
                                             </div>
-                                            <div className="space-y-2">
-                                                <Label htmlFor="category">Category</Label>
-                                                <Input id="category" name="category" required type="text" />
+                                        </form>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        ) : pageName === "Expenses" ? (
+                            <div className="grid gap-6">
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle>Total Expenses</CardTitle>
+                                        <CardDescription>All expense transactions for the current month.</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <div className="text-4xl font-bold">$</div>
+                                    </CardContent>
+                                </Card>
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle>Add Expense</CardTitle>
+                                        <CardDescription>Record a new expense transaction.</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <form>
+                                            <div className="grid gap-4">
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor="date">Date</Label>
+                                                        <Input id="date" name="date" required type="date" />
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor="category">Category</Label>
+                                                        <Input id="category" name="category" required type="text" />
+                                                    </div>
+                                                </div>
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor="amount">Amount</Label>
+                                                        <Input id="amount" name="amount" required type="number" />
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor="notes">Notes</Label>
+                                                        <Input id="notes" name="notes" type="text" />
+                                                    </div>
+                                                </div>
+                                                <Button className="justify-self-end" type="submit">
+                                                    Add Expense
+                                                </Button>
                                             </div>
-                                        </div>
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="space-y-2">
-                                                <Label htmlFor="amount">Amount</Label>
-                                                <Input id="amount" name="amount" required type="number" />
-                                            </div>
-                                            <div className="space-y-2">
-                                                <Label htmlFor="notes">Notes</Label>
-                                                <Input id="notes" name="notes" type="text" />
-                                            </div>
-                                        </div>
-                                        <Button className="justify-self-end" type="submit">
-                                            Add Income
-                                        </Button>
-                                    </div>
-                                </form>
-                            </CardContent>
-                        </Card>
-                    </div>
-                    <div className="grid gap-6">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Total Expenses</CardTitle>
-                                <CardDescription>All expense transactions for the current month.</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="text-4xl font-bold">$</div>
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Add Expense</CardTitle>
-                                <CardDescription>Record a new expense transaction.</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <form>
-                                    <div className="grid gap-4">
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="space-y-2">
-                                                <Label htmlFor="date">Date</Label>
-                                                <Input id="date" name="date" required type="date" />
-                                            </div>
-                                            <div className="space-y-2">
-                                                <Label htmlFor="category">Category</Label>
-                                                <Input id="category" name="category" required type="text" />
-                                            </div>
-                                        </div>
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="space-y-2">
-                                                <Label htmlFor="amount">Amount</Label>
-                                                <Input id="amount" name="amount" required type="number" />
-                                            </div>
-                                            <div className="space-y-2">
-                                                <Label htmlFor="notes">Notes</Label>
-                                                <Input id="notes" name="notes" type="text" />
-                                            </div>
-                                        </div>
-                                        <Button className="justify-self-end" type="submit">
-                                            Add Expense
-                                        </Button>
-                                    </div>
-                                </form>
-                            </CardContent>
-                        </Card>
-                    </div>
-                    <div className="grid gap-6">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Balance</CardTitle>
-                                <CardDescription>The difference between your total income and total expenses.</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="text-4xl font-bold ">$</div>
-                            </CardContent>
-                        </Card>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Income vs Expenses</CardTitle>
-                                    <CardDescription>A comparison of your total income and total expenses.</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <BarChart className="aspect-[4/3]" />
-                                </CardContent>
-                            </Card>
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Expense Breakdown</CardTitle>
-                                    <CardDescription>A breakdown of your expenses by category.</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <PieChart className="aspect-square" />
-                                </CardContent>
-                            </Card>
-                        </div>
-                    </div>
+                                        </form>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        ) : (
+                            <div className="grid gap-6">
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle>Balance</CardTitle>
+                                        <CardDescription>The difference between your total income and total expenses.</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <div className="text-4xl font-bold ">$</div>
+                                    </CardContent>
+                                </Card>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <Card>
+                                        <CardHeader>
+                                            <CardTitle>Income vs Expenses</CardTitle>
+                                            <CardDescription>A comparison of your total income and total expenses.</CardDescription>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <BarChart className="aspect-[4/3]" />
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader>
+                                            <CardTitle>Expense Breakdown</CardTitle>
+                                            <CardDescription>A breakdown of your expenses by category.</CardDescription>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <PieChart className="aspect-square" />
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                            </div>
+                        )}
                 </main>
             </div>
         </div>)
