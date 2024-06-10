@@ -62,6 +62,16 @@ export function Playground() {
         setIncome(income + parseFloat(amountinput));
         setBalance(balance + parseFloat(amountinput));
         setIncomeData([...incomedata, { date: todayDate, category: category, amount: amountinput, notes: notes }]);
+
+        toast({
+            title: "Success:",
+            description: "Income added successfully.",
+        });
+
+        // clear data after adding income
+        setAmountInput(0.00);
+        setCategory("");
+        setNotes("");
         return;
     }
 
