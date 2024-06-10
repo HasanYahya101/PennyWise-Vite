@@ -34,6 +34,8 @@ export function Playground() {
 
     const [todayDate, setTodayDate] = useState(getCurrentDate());
 
+    const [incomedata, setIncomeData] = useState([]);
+
     function IncomeButtonClicked() {
         if (amountinput < 1) {
             toast({
@@ -59,6 +61,7 @@ export function Playground() {
 
         setIncome(income + parseFloat(amountinput));
         setBalance(balance + parseFloat(amountinput));
+        setIncomeData([...incomedata, { date: todayDate, category: category, amount: amountinput, notes: notes }]);
         return;
     }
 
