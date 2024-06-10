@@ -53,7 +53,6 @@ export function Playground() {
     }
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
-            <Toaster />
             <div className="bg-gray-100 dark:bg-gray-800 px-4 py-6">
                 <div className="flex h-full flex-col gap-6">
                     <div className="flex items-center gap-2 ml-6">
@@ -111,6 +110,7 @@ export function Playground() {
                     </nav>
                 </div>
             </div>
+
             <div className="flex flex-col">
                 <header className="bg-gray-100 dark:bg-gray-800 px-6 py-4">
                     <div className="flex items-center justify-between">
@@ -140,7 +140,7 @@ export function Playground() {
                                         <CardDescription>Record a new income transaction.</CardDescription>
                                     </CardHeader>
                                     <CardContent>
-                                        <form>
+                                        <div>
                                             <div className="grid gap-4">
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-2">
@@ -165,12 +165,12 @@ export function Playground() {
                                                         />
                                                     </div>
                                                 </div>
-                                                <Button className="justify-self-end" type="submit"
+                                                <Button className="justify-self-end" onClick={IncomeButtonClicked}
                                                 >
                                                     Add Income
                                                 </Button>
                                             </div>
-                                        </form>
+                                        </div>
                                     </CardContent>
                                 </Card>
                             </div>
@@ -191,7 +191,7 @@ export function Playground() {
                                         <CardDescription>Record a new expense transaction.</CardDescription>
                                     </CardHeader>
                                     <CardContent>
-                                        <form>
+                                        <div>
                                             <div className="grid gap-4">
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-2">
@@ -217,7 +217,7 @@ export function Playground() {
                                                     Add Expense
                                                 </Button>
                                             </div>
-                                        </form>
+                                        </div>
                                     </CardContent>
                                 </Card>
                             </div>
@@ -256,6 +256,7 @@ export function Playground() {
                         )}
                 </main>
             </div>
+            <Toaster />
         </div>)
     );
 }
