@@ -23,14 +23,14 @@ export function Playground() {
                             <Button variant="ghost" onClick={() => setPageName("Income")}
                                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
                             >
-                                <DollarSignIcon className="h-4 w-4" />
+                                <CashIcon className="h-4 w-4" />
                                 Income
                             </Button>
                         ) : (
                             <Button variant="outline" onClick={() => setPageName("Income")}
                                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
                             >
-                                <DollarSignIcon className="h-4 w-4" />
+                                <CashIcon className="h-4 w-4" />
                                 Income
                             </Button>)}
                         {pageName !== "Expenses" ?
@@ -38,14 +38,14 @@ export function Playground() {
                                 <Button variant="ghost" onClick={() => setPageName("Expenses")}
                                     className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
                                 >
-                                    <ReceiptIcon className="h-4 w-4" />
+                                    <ExpensesIcon className="h-4 w-4" />
                                     Expenses
                                 </Button>) :
                             (
                                 <Button variant="outline" onClick={() => setPageName("Expenses")}
                                     className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
                                 >
-                                    <ReceiptIcon className="h-4 w-4" />
+                                    <ExpensesIcon className="h-4 w-4" />
                                     Expenses
                                 </Button>
                             )}
@@ -54,7 +54,7 @@ export function Playground() {
                                 <Button variant="ghost" onClick={() => setPageName("Reports")}
                                     className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
                                 >
-                                    <BarChartIcon className="h-4 w-4" />
+                                    <ReportIcon className="h-4 w-4" />
                                     Reports
                                 </Button>
                             ) :
@@ -62,7 +62,7 @@ export function Playground() {
                                 <Button variant="outline" onClick={() => setPageName("Reports")}
                                     className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
                                 >
-                                    <BarChartIcon className="h-4 w-4" />
+                                    <ReportIcon className="h-4 w-4" />
                                     Reports
                                 </Button>
                             )}
@@ -373,29 +373,6 @@ function PlusIcon(props) {
     );
 }
 
-
-function ReceiptIcon(props) {
-    return (
-        (<svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round">
-            <path
-                d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" />
-            <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
-            <path d="M12 17.5v-11" />
-        </svg>)
-    );
-}
-
-
 function WalletIcon(props) {
     return (
         (<svg
@@ -416,3 +393,34 @@ function WalletIcon(props) {
     );
 }
 
+function ReportIcon(props) {
+    return (
+        (<svg
+            {...props}
+            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.29289 1.29289C9.48043 1.10536 9.73478 1 10 1H18C19.6569 1 21 2.34315 21 4V20C21 21.6569 19.6569 23 18 23H6C4.34315 23 3 21.6569 3 20V8C3 7.73478 3.10536 7.48043 3.29289 7.29289L9.29289 1.29289ZM18 3H11V8C11 8.55228 10.5523 9 10 9H5V20C5 20.5523 5.44772 21 6 21H18C18.5523 21 19 20.5523 19 20V4C19 3.44772 18.5523 3 18 3ZM6.41421 7H9V4.41421L6.41421 7ZM7 13C7 12.4477 7.44772 12 8 12H16C16.5523 12 17 12.4477 17 13C17 13.5523 16.5523 14 16 14H8C7.44772 14 7 13.5523 7 13ZM7 17C7 16.4477 7.44772 16 8 16H16C16.5523 16 17 16.4477 17 17C17 17.5523 16.5523 18 16 18H8C7.44772 18 7 17.5523 7 17Z" fill="#000000" />
+        </svg>)
+    );
+}
+
+function CashIcon(props) {
+    return (
+        (<svg
+            {...props}
+            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M3 5C3 4.44772 3.44772 4 4 4H20C20.5523 4 21 4.44772 21 5V19C21 19.5523 20.5523 20 20 20H4C3.44772 20 3 19.5523 3 19V5ZM4 2C2.34315 2 1 3.34315 1 5V19C1 20.6569 2.34315 22 4 22H20C21.6569 22 23 20.6569 23 19V5C23 3.34315 21.6569 2 20 2H4ZM6 8C6 7.44772 6.44772 7 7 7H17C17.5523 7 18 7.44772 18 8C18 8.55228 17.5523 9 17 9H7C6.44772 9 6 8.55228 6 8ZM6 12C6 11.4477 6.44772 11 7 11H17C17.5523 11 18 11.4477 18 12C18 12.5523 17.5523 13 17 13H7C6.44772 13 6 12.5523 6 12ZM6 16C6 15.4477 6.44772 15 7 15H17C17.5523 15 18 15.4477 18 16C18 16.5523 17.5523 17 17 17H7C6.44772 17 6 16.5523 6 16Z" fill="#000000" />
+        </svg>
+        )
+    );
+}
+
+function ExpensesIcon(props) {
+    return (
+        (<svg
+            {...props}
+            width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 13.0001H13M7 9.0001H9M7 17.0001H13M16 21.0001H18.5M17 21.0001H7.8C6.11984 21.0001 5.27976 21.0001 4.63803 20.6731C4.07354 20.3855 3.6146 19.9266 3.32698 19.3621C3 18.7203 3 17.8803 3 16.2001V5.75719C3 4.8518 3 4.3991 3.1902 4.13658C3.35611 3.90758 3.61123 3.75953 3.89237 3.72909C4.21467 3.6942 4.60772 3.9188 5.39382 4.368L5.70618 4.54649C5.99552 4.71183 6.14019 4.7945 6.29383 4.82687C6.42978 4.85551 6.57022 4.85551 6.70617 4.82687C6.85981 4.7945 7.00448 4.71183 7.29382 4.54649L9.20618 3.45372C9.49552 3.28838 9.64019 3.20571 9.79383 3.17334C9.92978 3.14469 10.0702 3.14469 10.2062 3.17334C10.3598 3.20571 10.5045 3.28838 10.7938 3.45372L12.7062 4.54649C12.9955 4.71183 13.1402 4.7945 13.2938 4.82687C13.4298 4.85551 13.5702 4.85551 13.7062 4.82687C13.8598 4.7945 14.0045 4.71183 14.2938 4.54649L14.6062 4.368C15.3923 3.9188 15.7853 3.6942 16.1076 3.72909C16.3888 3.75953 16.6439 3.90758 16.8098 4.13658C17 4.3991 17 4.8518 17 5.75719V14.0001M17 13.0001H21V19.0001C21 20.1047 20.1046 21.0001 19 21.0001C17.8954 21.0001 17 20.1047 17 19.0001V13.0001Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        )
+    );
+}

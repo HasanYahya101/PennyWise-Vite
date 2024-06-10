@@ -1,4 +1,4 @@
-# CalcWhiz (React + Vite)
+# PennyWise (React + Vite)
 
 ## Introduction
 
@@ -13,6 +13,7 @@ Radix UI and ShadCN components were used to create the UI of the website. Moreov
 This project was deployed to Github Pages and can be tested there. No servers or databases were used in this Project.
 
 ## Preview
+
 Enter Preview here.
 
 ## React + Vite
