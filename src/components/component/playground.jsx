@@ -24,6 +24,16 @@ export function Playground() {
 
     const [notes, setNotes] = useState("");
 
+    const getCurrentDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const [todayDate, setTodayDate] = useState(getCurrentDate());
+
     function IncomeButtonClicked() {
         if (amountinput < 1) {
             toast({
@@ -51,6 +61,7 @@ export function Playground() {
         setBalance(balance + parseFloat(amountinput));
         return;
     }
+
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
             <div className="bg-gray-100 dark:bg-gray-800 px-4 py-6">
@@ -145,7 +156,8 @@ export function Playground() {
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-2">
                                                         <Label htmlFor="date">Date</Label>
-                                                        <Input id="date" name="date" required type="date" />
+                                                        <Input id="date" name="date" required type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
+                                                        />
                                                     </div>
                                                     <div className="space-y-2">
                                                         <Label htmlFor="category">Category</Label>
