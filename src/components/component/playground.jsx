@@ -58,6 +58,27 @@ export function Playground() {
             })
             return;
         }
+        else if (notes.length > 12) {
+            toast({
+                title: "Error:",
+                description: "Notes cannot be more than 12 characters. Please enter a valid note.",
+            })
+            return;
+        }
+        else if (amountinput > 1000000) {
+            toast({
+                title: "Error:",
+                description: "Amount cannot be more than 1,000,000. Please enter a valid amount.",
+            })
+            return;
+        }
+        else if (category.length > 12) {
+            toast({
+                title: "Error:",
+                description: "Category cannot be more than 12 characters. Please enter a valid category.",
+            })
+            return;
+        }
 
         setIncome(income + parseFloat(amountinput));
         setBalance(balance + parseFloat(amountinput));
