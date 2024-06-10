@@ -65,6 +65,10 @@ export function Playground() {
         return;
     }
 
+    useState(() => {
+        console.log("Income Data: ", incomedata);
+    }, [incomedata]);
+
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
             <div className="bg-gray-100 dark:bg-gray-800 px-4 py-6">
