@@ -5,13 +5,55 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { ResponsiveBar } from "@nivo/bar"
 import { ResponsivePie } from "@nivo/pie"
+import { Toaster } from "@/components/ui/toaster"
+import { useToast } from "@/components/ui/use-toast"
 
 export function Playground() {
+    const { toast } = useToast();
     const [pageName, setPageName] = useState("Income");
 
+    const [income, setIncome] = useState(0.00);
 
+    const [expenses, setExpenses] = useState(0.00);
+
+    const [balance, setBalance] = useState(0.00);
+
+    const [amountinput, setAmountInput] = useState(0.00);
+
+    const [category, setCategory] = useState("");
+
+    const [notes, setNotes] = useState("");
+
+    function IncomeButtonClicked() {
+        if (amountinput < 1) {
+            toast({
+                title: "Error:",
+                description: "Please enter a valid amount in the input. Amount must be equal or greater than 1.",
+            })
+            return;
+        }
+        else if (category === "") {
+            toast({
+                title: "Error:",
+                description: "Category cannot be empty. Please enter a valid category.",
+            })
+            return;
+        }
+        else if (notes === "") {
+            toast({
+                title: "Error:",
+                description: "Notes cannot be empty. Please enter a valid note.",
+            })
+            return;
+        }
+
+        setIncome(income + parseFloat(amountinput));
+        setBalance(balance + parseFloat(amountinput));
+        return;
+    }
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
+            <Toaster />
             <div className="bg-gray-100 dark:bg-gray-800 px-4 py-6">
                 <div className="flex h-full flex-col gap-6">
                     <div className="flex items-center gap-2 ml-6">
@@ -89,7 +131,7 @@ export function Playground() {
                                         <CardDescription>All income transactions for the current month.</CardDescription>
                                     </CardHeader>
                                     <CardContent>
-                                        <div className="text-4xl font-bold">$</div>
+                                        <div className="text-4xl font-bold text-green-600">$ {income}</div>
                                     </CardContent>
                                 </Card>
                                 <Card>
@@ -107,20 +149,24 @@ export function Playground() {
                                                     </div>
                                                     <div className="space-y-2">
                                                         <Label htmlFor="category">Category</Label>
-                                                        <Input id="category" name="category" required type="text" />
+                                                        <Input id="category" name="category" required type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Enter category here..."
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-2">
                                                         <Label htmlFor="amount">Amount</Label>
-                                                        <Input id="amount" name="amount" required type="number" />
+                                                        <Input id="amount" name="amount" required type="number" onChange={(e) => setAmountInput(e.target.value)} value={amountinput} placeholder="Enter amount here..."
+                                                        />
                                                     </div>
                                                     <div className="space-y-2">
                                                         <Label htmlFor="notes">Notes</Label>
-                                                        <Input id="notes" name="notes" type="text" />
+                                                        <Input id="notes" name="notes" type="text" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Enter any important note here..."
+                                                        />
                                                     </div>
                                                 </div>
-                                                <Button className="justify-self-end" type="submit">
+                                                <Button className="justify-self-end" type="submit"
+                                                >
                                                     Add Income
                                                 </Button>
                                             </div>
@@ -136,7 +182,7 @@ export function Playground() {
                                         <CardDescription>All expense transactions for the current month.</CardDescription>
                                     </CardHeader>
                                     <CardContent>
-                                        <div className="text-4xl font-bold">$</div>
+                                        <div className="text-4xl font-bold text-red-600">$ {expenses}</div>
                                     </CardContent>
                                 </Card>
                                 <Card>
@@ -183,7 +229,7 @@ export function Playground() {
                                         <CardDescription>The difference between your total income and total expenses.</CardDescription>
                                     </CardHeader>
                                     <CardContent>
-                                        <div className="text-4xl font-bold ">$</div>
+                                        <div className="text-4xl font-bold text-blue-600">$ {balance}</div>
                                     </CardContent>
                                 </Card>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
