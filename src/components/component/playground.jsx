@@ -800,6 +800,11 @@ function BarChart({ top_six_transactions }) {
         return value;
     };
 
+    const getColor = (bar) => {
+        const transaction = top_six_transactions[bar.index];
+        return transaction.type === "Income" ? "#2563eb" : "#dc2626";
+    };
+
     return (
         <div className="aspect-[4/3] mt-4">
             <ResponsiveBar
@@ -807,11 +812,11 @@ function BarChart({ top_six_transactions }) {
                     name: `${index + 1}th`,
                     count: transaction.amount,
                 }))}
+                colors={getColor}
                 keys={['count']}
                 indexBy="name"
                 margin={{ top: 0, right: 0, bottom: 40, left: 50 }}
                 padding={0.3}
-                colors={["#2563eb"]}
                 axisBottom={{
                     tickSize: 0,
                     tickPadding: 16,
