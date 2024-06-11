@@ -323,7 +323,7 @@ export function Playground() {
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-2">
                                                         <Label htmlFor="date">Date</Label>
-                                                        <Input id="date" name="date" type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
+                                                        <Input id="date" name="date" require type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
                                                         />
                                                     </div>
                                                     <div className="space-y-2">
@@ -375,7 +375,7 @@ export function Playground() {
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-2">
                                                         <Label htmlFor="date">Date</Label>
-                                                        <Input id="date" name="date" type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
+                                                        <Input id="date" name="date" require type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
                                                         />
                                                     </div>
                                                     <div className="space-y-2">
@@ -645,7 +645,7 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="date">Date</Label>
-                            <Input id="date" name="date" type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
+                            <Input id="date" name="date" require type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
                             />
                         </div>
                     </div>
