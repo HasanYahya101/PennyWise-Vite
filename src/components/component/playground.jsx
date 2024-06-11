@@ -323,7 +323,7 @@ export function Playground() {
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-2">
                                                         <Label htmlFor="date">Date</Label>
-                                                        <Input id="date" name="date" required type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
+                                                        <Input id="date" name="date" type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
                                                         />
                                                     </div>
                                                     <div className="space-y-2">
@@ -375,7 +375,7 @@ export function Playground() {
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-2">
                                                         <Label htmlFor="date">Date</Label>
-                                                        <Input id="date" name="date" required type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
+                                                        <Input id="date" name="date" type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
                                                         />
                                                     </div>
                                                     <div className="space-y-2">
@@ -639,13 +639,13 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
                 <div className="grid gap-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <Label htmlFor="category">Category</Label>
-                            <Input id="category" name="category" required type="text" placeholder="Enter category here..." value={category_} onChange={(e) => setCategory_(e.target.value)}
+                            <Label htmlFor="date">Date</Label>
+                            <Input id="date" name="date" type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="date">Date</Label>
-                            <Input id="date" name="date" required type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
+                            <Label htmlFor="category">Category</Label>
+                            <Input id="category" name="category" required type="text" placeholder="Enter category here..." value={category_} onChange={(e) => setCategory_(e.target.value)}
                             />
                         </div>
                     </div>
