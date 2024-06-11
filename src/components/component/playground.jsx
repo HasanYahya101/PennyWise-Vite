@@ -563,7 +563,7 @@ export function Playground() {
                                                                 <h1 className="text-lg font-semibold mb-2"
                                                                 >Error: No transactions found.</h1>
                                                                 <span className="text-sm"
-                                                                >A minimum of 6 category transactions are needed to show the data comparisons. This pie chart shows the balance of top 6 categories.</span>
+                                                                >A minimum of 6 distinct category transactions are needed to show the data comparisons. This pie chart shows the balance of top 6 categories.</span>
                                                             </div>
                                                         </HoverCardContent>
                                                     </HoverCard>
