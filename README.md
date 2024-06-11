@@ -18,7 +18,7 @@ Enter Preview here.
 
 ## Walkthrough
 
-https://github.com/HasanYahya101/PennyWise-Vite/assets/118683092/fea94fcd-194f-4701-8f94-6502cb7a039b
+https://github.com/HasanYahya101/PennyWise-Vite/assets/118683092/e5f0f7c4-4bdc-4335-9b7e-222dbe5aa193
 
 ## React + Vite
 
