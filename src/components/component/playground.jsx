@@ -251,7 +251,9 @@ export function Playground() {
         const balancePerCategory = calculateBalancePerCategory(allTransactions);
         // Sort the balancePerCategory array by totalAmount
         const sortedBalancePerCategory = balancePerCategory.sort((a, b) => b.totalAmount - a.totalAmount);
-        setBalancePerCategory(sortedBalancePerCategory);
+        // get the first 6 categories
+        const topSixCategories = sortedBalancePerCategory.slice(0, 6);
+        setBalancePerCategory(topSixCategories);
     }, [allTransactions]);
 
     const [top_six_transactions, setTopSixTransactions] = useState([]);
@@ -815,51 +817,9 @@ function BarChart(props) {
     );
 }
 
-
-function BarChartIcon(props) {
+function PieChart() {
     return (
-        (<svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round">
-            <line x1="12" x2="12" y1="20" y2="10" />
-            <line x1="18" x2="18" y1="20" y2="4" />
-            <line x1="6" x2="6" y1="20" y2="16" />
-        </svg>)
-    );
-}
-
-
-function DollarSignIcon(props) {
-    return (
-        (<svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round">
-            <line x1="12" x2="12" y1="2" y2="22" />
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-        </svg>)
-    );
-}
-
-
-function PieChart(props) {
-    return (
-        (<div {...props}>
+        (<div className="aspect-square">
             <ResponsivePie
                 data={[
                     { id: "Jan", value: 111 },
@@ -902,6 +862,44 @@ function PieChart(props) {
     );
 }
 
+function BarChartIcon(props) {
+    return (
+        (<svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round">
+            <line x1="12" x2="12" y1="20" y2="10" />
+            <line x1="18" x2="18" y1="20" y2="4" />
+            <line x1="6" x2="6" y1="20" y2="16" />
+        </svg>)
+    );
+}
+
+function DollarSignIcon(props) {
+    return (
+        (<svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round">
+            <line x1="12" x2="12" y1="2" y2="22" />
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+        </svg>)
+    );
+}
 
 function PlusIcon(props) {
     return (
