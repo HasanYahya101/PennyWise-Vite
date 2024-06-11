@@ -782,8 +782,17 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
 }
 
 function BarChart({ top_six_transactions }) {
+
+    const [maxYLimit, setMaxYLimit] = useState(null);
+
+    useEffect(() => {
+        const maxAmount_ = Math.max(...top_six_transactions.map(transaction => transaction.amount));
+        const maxYLimit_ = Math.ceil(maxAmount_ * 1.3);
+        setMaxYLimit(maxYLimit_);
+    }, [top_six_transactions]);
+
     return (
-        (<div className="aspect-[4/3]">
+        (<div className="aspect-[4/3] mt-4">
             <ResponsiveBar
                 data={[
                     { name: `1st`, count: top_six_transactions[0].amount },
@@ -793,7 +802,7 @@ function BarChart({ top_six_transactions }) {
                     { name: `5th`, count: top_six_transactions[4].amount },
                     { name: `6th`, count: top_six_transactions[5].amount },
                 ]}
-                keys={["count"]}
+                keys={[`count`]}
                 indexBy="name"
                 margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
                 padding={0.3}
@@ -806,6 +815,8 @@ function BarChart({ top_six_transactions }) {
                     tickSize: 0,
                     tickValues: 4,
                     tickPadding: 16,
+                    domain: [0, maxYLimit],
+
                 }}
                 gridYValues={4}
                 theme={{
