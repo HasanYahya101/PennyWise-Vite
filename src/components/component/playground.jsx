@@ -588,6 +588,7 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
         setAmount_(0.00);
         setCategory_("");
         setNotes_("");
+        setOpen(false);
         return;
     }
 
@@ -637,7 +638,7 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
                         >
                             Cancel
                         </Button>
-                        <Button className="justify-self-start"
+                        <Button className="justify-self-start" onClick={AddClicked}
                         >
                             Add Transaction
                         </Button>
