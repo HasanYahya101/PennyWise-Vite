@@ -22,6 +22,8 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "install": "^0.13.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
     "lucide-react": "^0.394.0",
     "npm": "^10.8.1",
     "react": "^18.3.1",

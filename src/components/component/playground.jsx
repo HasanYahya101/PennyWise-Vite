@@ -31,6 +31,8 @@ import {
     HoverCardContent,
     HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { jsPDF } from "jspdf";
+import 'jspdf-autotable';
 
 export function Playground() {
     const { toast } = useToast();
@@ -246,7 +248,9 @@ export function Playground() {
 
     // in a use state when ever allTransactions is changed, recount the total balance of each distinct category
     useEffect(() => {
-        const expenseBalancePerCategory = calculateBalancePerCategory(allTransactions.filter(transaction => transaction.type === "Expense"));
+        // copy the all transactions
+        const allTransactions_ = [...allTransactions];
+        const expenseBalancePerCategory = calculateBalancePerCategory(allTransactions_.filter(transaction => transaction.type === "Expense"));
 
         // sort from amount highest to lowest
         const sortedExpenseBalancePerCategory = expenseBalancePerCategory.sort((a, b) => b.totalAmount - a.totalAmount);
@@ -273,7 +277,9 @@ export function Playground() {
 
     // get the top 6 transactions after sorting them from highest to lowest
     useEffect(() => {
-        const sortedTransactions = allTransactions.sort((a, b) => b.amount - a.amount);
+        // copy the all transactions
+        const allTransactions_ = [...allTransactions];
+        const sortedTransactions = allTransactions_.sort((a, b) => b.amount - a.amount);
         const topSixTransactions = sortedTransactions.slice(0, 6);
         topSixTransactions.forEach(transaction => {
             transaction.amount = parseInt(transaction.amount);
@@ -291,6 +297,66 @@ export function Playground() {
         console.log("Top 6: ", top_six_transactions);
         console.log("-------------------------------------");
     }, [incomedata, expensedataarray, allTransactions, balanceperCategory]);
+
+    function DownloadPdf() {
+        if (allTransactions.length === 0) {
+            toast({
+                title: "Error:",
+                description: "No transactions found. Please add some transactions to download the PDF.",
+            });
+            return;
+        }
+        else if (allTransactions.length < 10) {
+            toast({
+                title: "Error:",
+                description: "A minimum of 10 transactions are needed to download the PDF. Please add more transactions.",
+            });
+            return;
+        }
+        CreatePDFTables();
+        return;
+    }
+
+    function getamount(amount, type) {
+        if (type === "Income") {
+            return `$${amount}`;
+        }
+        return `-$${Math.abs(amount)}`;
+    }
+
+    function CreatePDFTables() {
+        const doc = new jsPDF();
+        // make the pdf page size A4 
+        doc.autoTableSetDefaults({
+            addPageContent: function (data) {
+                doc.text("Expense Tracker - All Transactions", 16, 15);
+            },
+            margin: { top: 20 },
+            headStyles: { fillColor: [0, 0, 0] },
+            bodyStyles: { textColor: [0, 0, 0] },
+        });
+        doc.addFont('Helvetica', 'Helvetica', 'normal');
+        doc.setFont('Helvetica');
+        doc.setFontSize(12);
+
+        doc.autoTable({
+            head: [["Type", "Date", "Category", "Amount", "Notes"]],
+            // justify the text to the center
+            headStyles: { halign: 'center' },
+            body: allTransactions.map(transaction => [
+                transaction.type,
+                transaction.date,
+                transaction.category,
+                getamount(transaction.amount, transaction.type),
+                transaction.notes
+            ]),
+            bodyStyles: { halign: 'center' },
+        });
+        // Add text for total balance
+        doc.text(`Total Balance: ${(balance > 0) ? `$${balance}` : `-$${Math.abs(balance)}`}`, 16, doc.autoTable.previous.finalY + 10);
+
+        doc.save("transactions.pdf");
+    }
 
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
@@ -607,6 +673,10 @@ export function Playground() {
                                         </CardContent>
                                     </Card>
                                 </div>
+                                <Button className="justify-self-end" onClick={DownloadPdf}
+                                >
+                                    Download PDF Report
+                                </Button>
                             </div>
                         )}
                 </main>
