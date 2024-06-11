@@ -249,18 +249,17 @@ export function Playground() {
     // in a use state when ever allTransactions is changed, recount the total balance of each distinct category
     useEffect(() => {
         const balancePerCategory = calculateBalancePerCategory(allTransactions);
-        // Sort the balancePerCategory array by totalAmount
+
         const sortedBalancePerCategory = balancePerCategory.sort((a, b) => b.totalAmount - a.totalAmount);
-        // get the first 6 categories
+
         const topSixCategories = sortedBalancePerCategory.slice(0, 6);
-        // if the totalAmount is string with leading zeros convert to int
+
         topSixCategories.forEach(category => {
             category.totalAmount = parseInt(category.totalAmount);
         });
 
-        // remove any with negative totalAmount or zero
         const filteredCategories = topSixCategories.filter(category => category.totalAmount > 0);
-        // parse int
+
         filteredCategories.forEach(category => {
             category.totalAmount = parseInt(category.totalAmount);
         });
@@ -269,11 +268,10 @@ export function Playground() {
 
     const [top_six_transactions, setTopSixTransactions] = useState([]);
 
+    // get the top 6 transactions after sorting them from highest to lowest
     useEffect(() => {
-        // get the top 6 transactions after sorting them from highest to lowest
         const sortedTransactions = allTransactions.sort((a, b) => b.amount - a.amount);
         const topSixTransactions = sortedTransactions.slice(0, 6);
-        // parse int
         topSixTransactions.forEach(transaction => {
             transaction.amount = parseInt(transaction.amount);
         });
