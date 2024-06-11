@@ -389,7 +389,9 @@ export function Playground() {
                                         <CardDescription>The difference between your total income and total expenses.</CardDescription>
                                     </CardHeader>
                                     <CardContent>
-                                        <div className="text-4xl font-bold text-blue-600">$ {balance}</div>
+                                        <div className="text-4xl font-bold text-blue-600">
+                                            {(balance > 0) ? `$${balance}` : `-$${Math.abs(balance)}`}
+                                        </div>
                                     </CardContent>
                                 </Card>
                                 <Card>
@@ -431,7 +433,7 @@ export function Playground() {
                                                                 {transaction.category}
                                                             </TableCell>
                                                             <TableCell key={index} className="text-center" >
-                                                                {transaction.amount}
+                                                                {(transaction.type === "Income") ? `$${transaction.amount}` : `-$${transaction.amount}`}
                                                             </TableCell>
                                                             <TableCell key={index} className="text-center" >
                                                                 {transaction.notes}
@@ -443,7 +445,9 @@ export function Playground() {
                                                     <TableRow>
                                                         <TableCell className="text-center">Total</TableCell>
                                                         <TableCell colSpan={3}></TableCell>
-                                                        <TableCell className="text-center">${balance}</TableCell>
+                                                        <TableCell className="text-center">
+                                                            {(balance > 0) ? `$${balance}` : `-$${Math.abs(balance)}`}
+                                                        </TableCell>
                                                     </TableRow>
                                                 </TableFooter>
                                             </Table>
