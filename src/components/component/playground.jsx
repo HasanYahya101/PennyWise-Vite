@@ -527,7 +527,7 @@ export function Playground() {
                                                 </TableBody>
                                                 <TableFooter>
                                                     <TableRow>
-                                                        <TableCell className="text-center">Total</TableCell>
+                                                        <TableCell className="text-center">Total:</TableCell>
                                                         <TableCell colSpan={3}></TableCell>
                                                         <TableCell className="text-center">
                                                             {(balance > 0) ? `$${balance}` : `-$${Math.abs(balance)}`}
@@ -544,7 +544,8 @@ export function Playground() {
                                             <CardTitle>Income vs Expenses</CardTitle>
                                             <CardDescription>A comparison of your total income and total expenses (top 6 transactions).</CardDescription>
                                         </CardHeader>
-                                        <CardContent>
+                                        <CardContent className="mb-2"
+                                        >
                                             {allTransactions.length < 6 ? (
                                                 <Card className="flex items-center justify-center h-32">
                                                     <HoverCard>
