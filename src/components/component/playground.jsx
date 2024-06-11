@@ -269,6 +269,7 @@ export function Playground() {
         console.log("Expense Data: ", expensedataarray);
         console.log("All Transactions: ", allTransactions);
         console.log("Distinct category: ", balanceperCategory);
+        console.log("Top 6: ", top_six_transactions);
         console.log("-------------------------------------");
     }, [incomedata, expensedataarray, allTransactions, balanceperCategory]);
 
