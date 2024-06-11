@@ -468,7 +468,7 @@ export function Playground() {
                                 </Card>
                             </div>
                         ) : (
-                            <div className="grid gap-6">
+                            <div className="grid gap-6 min-w-[600px]">
                                 <Card>
                                     <CardHeader>
                                         <CardTitle>Balance</CardTitle>
