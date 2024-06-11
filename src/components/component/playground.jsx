@@ -786,12 +786,12 @@ function BarChart({ top_six_transactions }) {
         (<div className="aspect-[4/3]">
             <ResponsiveBar
                 data={[
-                    { name: "Jan", count: 111 },
-                    { name: "Feb", count: 157 },
-                    { name: "Mar", count: 129 },
-                    { name: "Apr", count: 150 },
-                    { name: "May", count: 119 },
-                    { name: "Jun", count: 72 },
+                    { name: `1st`, count: top_six_transactions[0].amount },
+                    { name: `2nd`, count: top_six_transactions[1].amount },
+                    { name: `3rd`, count: top_six_transactions[2].amount },
+                    { name: `4th`, count: top_six_transactions[3].amount },
+                    { name: `5th`, count: top_six_transactions[4].amount },
+                    { name: `6th`, count: top_six_transactions[5].amount },
                 ]}
                 keys={["count"]}
                 indexBy="name"
