@@ -253,7 +253,18 @@ export function Playground() {
         const sortedBalancePerCategory = balancePerCategory.sort((a, b) => b.totalAmount - a.totalAmount);
         // get the first 6 categories
         const topSixCategories = sortedBalancePerCategory.slice(0, 6);
-        setBalancePerCategory(topSixCategories);
+        // if the totalAmount is string with leading zeros convert to int
+        topSixCategories.forEach(category => {
+            category.totalAmount = parseInt(category.totalAmount);
+        });
+
+        // remove any with negative totalAmount or zero
+        const filteredCategories = topSixCategories.filter(category => category.totalAmount > 0);
+        // parse int
+        filteredCategories.forEach(category => {
+            category.totalAmount = parseInt(category.totalAmount);
+        });
+        setBalancePerCategory(filteredCategories);
     }, [allTransactions]);
 
     const [top_six_transactions, setTopSixTransactions] = useState([]);
@@ -262,6 +273,11 @@ export function Playground() {
         // get the top 6 transactions after sorting them from highest to lowest
         const sortedTransactions = allTransactions.sort((a, b) => b.amount - a.amount);
         const topSixTransactions = sortedTransactions.slice(0, 6);
+        // parse int
+        topSixTransactions.forEach(transaction => {
+            transaction.amount = parseInt(transaction.amount);
+        });
+
         setTopSixTransactions(topSixTransactions);
     }, [allTransactions]);
 
@@ -834,13 +850,13 @@ function PieChart({ balanceperCategory }) {
                 margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
                 cornerRadius={0}
                 padAngle={0}
+                colors={["#DE6B48", "#E5B181", "#F4B9B2", "#DAEDBD", "#7DBBC3", "#97D8B2"]}
                 borderWidth={1}
                 borderColor={"#ffffff"}
                 enableArcLinkLabels={false}
-                arcLabel={(d) => `${d.id}`}
+                arcLabel={` `}
                 arcLabelsTextColor={"#ffffff"}
                 arcLabelsRadiusOffset={0.65}
-                colors={["#2563eb"]}
                 theme={{
                     labels: {
                         text: {
