@@ -780,9 +780,9 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
     );
 }
 
-function BarChart(props) {
+function BarChart() {
     return (
-        (<div {...props}>
+        (<div className="aspect-[4/3]">
             <ResponsiveBar
                 data={[
                     { name: "Jan", count: 111 },
