@@ -38,7 +38,7 @@ export function Playground() {
 
     const [balance, setBalance] = useState(0.00);
 
-    const [amountinput, setAmountInput] = useState(0.00);
+    const [amountinput, setAmountInput] = useState(null);
 
     const [category, setCategory] = useState("");
 
@@ -111,6 +111,14 @@ export function Playground() {
             return;
         }
 
+        if (amountinput === null) {
+            toast({
+                title: "Error:",
+                description: "Please enter a valid amount in the input. Amount must be equal or greater than 1.",
+            })
+            return;
+        }
+
 
         setIncome(income + parseFloat(amountinput));
         setBalance(balance + parseFloat(amountinput));
@@ -123,13 +131,13 @@ export function Playground() {
         });
 
         // clear data after adding income
-        setAmountInput(0.00);
+        setAmountInput(null);
         setCategory("");
         setNotes("");
         return;
     }
 
-    const [expensedata, setExpenseData] = useState(0.00);
+    const [expensedata, setExpenseData] = useState(null);
 
     const [expenseCategory, setExpenseCategory] = useState("");
 
@@ -190,6 +198,14 @@ export function Playground() {
             return;
         }
 
+        if (expensedata === null) {
+            toast({
+                title: "Error:",
+                description: "Please enter a valid amount in the input. Amount must be equal or greater than 1.",
+            })
+            return;
+        }
+
         setExpenses(expenses + parseFloat(expensedata));
         setBalance(balance - parseFloat(expensedata));
 
@@ -199,7 +215,7 @@ export function Playground() {
         });
 
         // clear data after adding expense
-        setExpenseData(0.00);
+        setExpenseData(null);
         setExpenseCategory("");
         setExpenseNotes("");
         setExpenseDataArray([...expensedataarray, { date: todayDate, category: expenseCategory, amount: expensedata, notes: expenseNotes }]);
@@ -507,7 +523,7 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
     const [todayDate, setTodayDate] = useState(getCurrentDate());
 
     const [category_, setCategory_] = useState("");
-    const [amount_, setAmount_] = useState(0.00);
+    const [amount_, setAmount_] = useState(null);
     const [notes_, setNotes_] = useState("");
 
     const { toast } = useToast();
@@ -565,27 +581,39 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
             return;
         }
 
+        if (amount_ === null) {
+            toast({
+                title: "Error:",
+                description: "Please enter a valid amount in the input. Amount must not be zero or null.",
+            })
+            return;
+        }
+
         if (amount_ > 0) { // positive amount is considered as income
 
             setIncome(income + parseFloat(amount_));
             setBalance(balance + parseFloat(amount_));
             setIncomeData([...incomedata, { date: todayDate, category: category_, amount: amount_, notes: notes_ }]);
             setAllTransactions([...allTransactions, { type: "Income", date: todayDate, category: category_, amount: amount_, notes: notes_ }]);
+            toast({
+                title: "Success:",
+                description: "Income added successfully.",
+            });
         }
         else { // negative amount is considered as expense
-            setExpenses(expenses + parseFloat(amount_));
-            setBalance(balance - parseFloat(amount_));
-            setExpenseDataArray([...expensedataarray, { date: todayDate, category: category_, amount: amount_, notes: notes_ }]);
-            setAllTransactions([...allTransactions, { type: "Expense", date: todayDate, category: category_, amount: amount_, notes: notes_ }]);
+            setExpenses(expenses + parseFloat(amount_ * -1));
+            setBalance(balance - parseFloat(amount_ * -1));
+            var amt = amount_ * -1;
+            setExpenseDataArray([...expensedataarray, { date: todayDate, category: category_, amount: amt, notes: notes_ }]);
+            setAllTransactions([...allTransactions, { type: "Expense", date: todayDate, category: category_, amount: amt, notes: notes_ }]);
+            toast({
+                title: "Success:",
+                description: "Expense added successfully.",
+            });
         }
 
-        toast({
-            title: "Success:",
-            description: "Income added successfully.",
-        });
-
         // clear data after adding income
-        setAmount_(0.00);
+        setAmount_(null);
         setCategory_("");
         setNotes_("");
         setOpen(false);
@@ -611,13 +639,13 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
                 <div className="grid gap-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <Label htmlFor="date">Date</Label>
-                            <Input id="date" name="date" required type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
+                            <Label htmlFor="category">Category</Label>
+                            <Input id="category" name="category" required type="text" placeholder="Enter category here..." value={category_} onChange={(e) => setCategory_(e.target.value)}
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="category">Category</Label>
-                            <Input id="category" name="category" required type="text" placeholder="Enter category here..." value={category_} onChange={(e) => setCategory_(e.target.value)}
+                            <Label htmlFor="date">Date</Label>
+                            <Input id="date" name="date" required type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
                             />
                         </div>
                     </div>
