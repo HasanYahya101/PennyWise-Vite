@@ -254,6 +254,15 @@ export function Playground() {
         setBalancePerCategory(sortedBalancePerCategory);
     }, [allTransactions]);
 
+    const [top_six_transactions, setTopSixTransactions] = useState([]);
+
+    useEffect(() => {
+        // get the top 6 transactions after sorting them from highest to lowest
+        const sortedTransactions = allTransactions.sort((a, b) => b.amount - a.amount);
+        const topSixTransactions = sortedTransactions.slice(0, 6);
+        setTopSixTransactions(topSixTransactions);
+    }, [allTransactions]);
+
     useEffect(() => {
         console.log("-------------------------------------");
         console.log("Income Data: ", incomedata);
