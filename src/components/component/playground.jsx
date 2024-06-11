@@ -228,13 +228,36 @@ export function Playground() {
         return;
     }
 
+    const [balanceperCategory, setBalancePerCategory] = useState([]);
+
+    // in a use state when ever allTransactions is changed, recount the total balance of each distinct category
+    useState(() => {
+        const categories = allTransactions.map((transaction) => transaction.category);
+        const distinctCategories = [...new Set(categories)];
+
+        const balancePerCategory = distinctCategories.map((category) => {
+            const categoryTransactions = allTransactions.filter((transaction) => transaction.category === category);
+            var totalAmount = 0;
+            if (allTransactions.type === "Income") {
+                totalAmount = categoryTransactions.reduce((acc, curr) => acc + curr.amount, 0);
+            }
+            else {
+                totalAmount = categoryTransactions.reduce((acc, curr) => acc - curr.amount, 0);
+            }
+            return { category, totalAmount };
+        });
+
+        setBalancePerCategory(balancePerCategory);
+    }, [allTransactions]);
+
     useState(() => {
         console.log("-------------------------------------");
         console.log("Income Data: ", incomedata);
         console.log("Expense Data: ", expensedataarray);
         console.log("All Transactions: ", allTransactions);
+        console.log("Distinct category: ", balancePerCategory);
         console.log("-------------------------------------");
-    }, [incomedata, expensedataarray, allTransactions]);
+    }, [incomedata, expensedataarray, allTransactions, balancePerCategory]);
 
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
@@ -522,12 +545,27 @@ export function Playground() {
                                             <CardDescription>A breakdown of your expenses by category.</CardDescription>
                                         </CardHeader>
                                         <CardContent>
-                                            {allTransactions.length === 0 ? (
+                                            {allTransactions.length < 6 ? (
                                                 <Card className="flex items-center justify-center h-32">
-                                                    <NotfoundIcon className="h-8 w-8" />
-                                                    <span className="ml-2">No transactions found.</span>
+                                                    <HoverCard>
+                                                        <HoverCardTrigger>
+                                                            <div className="flex items-center justify-center h-32">
+                                                                <NotfoundIcon className="h-8 w-8" />
+                                                                <span className="ml-2">No transactions found.</span>
+                                                            </div>
+                                                        </HoverCardTrigger>
+                                                        <HoverCardContent>
+                                                            <div className="p-2">
+                                                                <h1 className="text-lg font-semibold mb-2"
+                                                                >Error: No transactions found.</h1>
+                                                                <span className="text-sm"
+                                                                >A minimum of 6 category transactions are needed to show the data comparisons.</span>
+                                                            </div>
+                                                        </HoverCardContent>
+                                                    </HoverCard>
                                                 </Card>
                                             ) : (
+
                                                 <PieChart className="aspect-square" />
                                             )}
                                         </CardContent>
