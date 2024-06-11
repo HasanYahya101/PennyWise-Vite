@@ -16,6 +16,10 @@ This project was deployed to Github Pages and can be tested there. No servers or
 
 Enter Preview here.
 
+## Walkthrough
+
+https://github.com/HasanYahya101/PennyWise-Vite/assets/118683092/fea94fcd-194f-4701-8f94-6502cb7a039b
+
 ## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
