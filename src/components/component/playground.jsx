@@ -255,9 +255,9 @@ export function Playground() {
         console.log("Income Data: ", incomedata);
         console.log("Expense Data: ", expensedataarray);
         console.log("All Transactions: ", allTransactions);
-        console.log("Distinct category: ", balancePerCategory);
+        console.log("Distinct category: ", balanceperCategory);
         console.log("-------------------------------------");
-    }, [incomedata, expensedataarray, allTransactions, balancePerCategory]);
+    }, [incomedata, expensedataarray, allTransactions, balanceperCategory]);
 
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
