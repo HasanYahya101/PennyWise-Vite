@@ -17,6 +17,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import Filter from 'bad-words';
 
 export function Playground() {
     const { toast } = useToast();
@@ -90,6 +91,15 @@ export function Playground() {
             return;
         }
 
+        const filter = new Filter();
+        if (filter.isProfane(notes) || filter.isProfane(category)) {
+            toast({
+                title: "Error:",
+                description: "Please enter a valid note and category. Profanity is not allowed.",
+            });
+            return;
+        }
+
         setIncome(income + parseFloat(amountinput));
         setBalance(balance + parseFloat(amountinput));
         setIncomeData([...incomedata, { date: todayDate, category: category, amount: amountinput, notes: notes }]);
@@ -155,6 +165,15 @@ export function Playground() {
                 title: "Error:",
                 description: "Category cannot be more than 12 characters. Please enter a valid category.",
             })
+            return;
+        }
+
+        const filter = new Filter();
+        if (filter.isProfane(expenseNotes) || filter.isProfane(expenseCategory)) {
+            toast({
+                title: "Error:",
+                description: "Please enter a valid note and category. Profanity is not allowed.",
+            });
             return;
         }
 
@@ -380,7 +399,6 @@ export function Playground() {
                                                 <span className="ml-2">No transactions found.</span>
                                             </Card>
                                         ) : (
-
                                             <Table classname="rounded-md"
                                             >
                                                 <TableCaption>A list of your recent transactions.</TableCaption>
