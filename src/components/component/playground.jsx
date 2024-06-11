@@ -364,7 +364,7 @@ export function Playground() {
                 <main className="flex-1 overflow-auto p-6">
                     {pageName === "Income" ?
                         (
-                            <div className="grid gap-6">
+                            <div className="grid gap-6 min-w-[600px]">
                                 <Card>
                                     <CardHeader>
                                         <CardTitle>Total Income</CardTitle>
@@ -416,7 +416,7 @@ export function Playground() {
                                 </Card>
                             </div>
                         ) : pageName === "Expenses" ? (
-                            <div className="grid gap-6">
+                            <div className="grid gap-6 min-w-[600px]">
                                 <Card>
                                     <CardHeader>
                                         <CardTitle>Total Expenses</CardTitle>
