@@ -565,7 +565,8 @@ export function Playground() {
                                                     </HoverCard>
                                                 </Card>
                                             ) : (
-                                                <BarChart className="aspect-[4/3]" />
+                                                <BarChart className="aspect-[4/3]" top_six_transactions={top_six_transactions}
+                                                />
                                             )}
                                         </CardContent>
                                     </Card>
@@ -780,7 +781,7 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
     );
 }
 
-function BarChart() {
+function BarChart({ top_six_transactions }) {
     return (
         (<div className="aspect-[4/3]">
             <ResponsiveBar
