@@ -26,6 +26,11 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 
 export function Playground() {
@@ -487,7 +492,28 @@ export function Playground() {
                                             <CardDescription>A comparison of your total income and total expenses.</CardDescription>
                                         </CardHeader>
                                         <CardContent>
-                                            <BarChart className="aspect-[4/3]" />
+                                            {allTransactions.length < 6 ? (
+                                                <Card className="flex items-center justify-center h-32">
+                                                    <HoverCard>
+                                                        <HoverCardTrigger>
+                                                            <div className="flex items-center justify-center h-32">
+                                                                <NotfoundIcon className="h-8 w-8" />
+                                                                <span className="ml-2">No transactions found.</span>
+                                                            </div>
+                                                        </HoverCardTrigger>
+                                                        <HoverCardContent>
+                                                            <div className="p-2">
+                                                                <h1 className="text-lg font-semibold mb-2"
+                                                                >Error: No transactions found.</h1>
+                                                                <span className="text-sm"
+                                                                >A minimum of 6 transactions are needed to show the data comparisons.</span>
+                                                            </div>
+                                                        </HoverCardContent>
+                                                    </HoverCard>
+                                                </Card>
+                                            ) : (
+                                                <BarChart className="aspect-[4/3]" />
+                                            )}
                                         </CardContent>
                                     </Card>
                                     <Card>
@@ -496,7 +522,14 @@ export function Playground() {
                                             <CardDescription>A breakdown of your expenses by category.</CardDescription>
                                         </CardHeader>
                                         <CardContent>
-                                            <PieChart className="aspect-square" />
+                                            {allTransactions.length === 0 ? (
+                                                <Card className="flex items-center justify-center h-32">
+                                                    <NotfoundIcon className="h-8 w-8" />
+                                                    <span className="ml-2">No transactions found.</span>
+                                                </Card>
+                                            ) : (
+                                                <PieChart className="aspect-square" />
+                                            )}
                                         </CardContent>
                                     </Card>
                                 </div>
