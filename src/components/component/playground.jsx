@@ -47,6 +47,8 @@ export function Playground() {
 
     const [incomedata, setIncomeData] = useState([]);
 
+    const [allTransactions, setAllTransactions] = useState([]);
+
     function IncomeButtonClicked() {
         if (amountinput < 1) {
             toast({
@@ -103,6 +105,7 @@ export function Playground() {
         setIncome(income + parseFloat(amountinput));
         setBalance(balance + parseFloat(amountinput));
         setIncomeData([...incomedata, { date: todayDate, category: category, amount: amountinput, notes: notes }]);
+        setAllTransactions([...allTransactions, { type: "Income", date: todayDate, category: category, amount: amountinput, notes: notes }]);
 
         toast({
             title: "Success:",
@@ -190,6 +193,7 @@ export function Playground() {
         setExpenseCategory("");
         setExpenseNotes("");
         setExpenseDataArray([...expensedataarray, { date: todayDate, category: expenseCategory, amount: expensedata, notes: expenseNotes }]);
+        setAllTransactions([...allTransactions, { type: "Expense", date: todayDate, category: expenseCategory, amount: expensedata, notes: expenseNotes }]);
         return;
     }
 
@@ -197,8 +201,9 @@ export function Playground() {
         console.log("-------------------------------------");
         console.log("Income Data: ", incomedata);
         console.log("Expense Data: ", expensedataarray);
+        console.log("All Transactions: ", allTransactions);
         console.log("-------------------------------------");
-    }, [incomedata, expensedataarray]);
+    }, [incomedata, expensedataarray, allTransactions]);
 
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
