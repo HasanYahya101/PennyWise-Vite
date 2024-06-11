@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -231,7 +231,7 @@ export function Playground() {
     const [balanceperCategory, setBalancePerCategory] = useState([]);
 
     // in a use state when ever allTransactions is changed, recount the total balance of each distinct category
-    useState(() => {
+    useEffect(() => {
         const categories = allTransactions.map((transaction) => transaction.category);
         const distinctCategories = [...new Set(categories)];
 
@@ -250,7 +250,7 @@ export function Playground() {
         setBalancePerCategory(balancePerCategory);
     }, [allTransactions]);
 
-    useState(() => {
+    useEffect(() => {
         console.log("-------------------------------------");
         console.log("Income Data: ", incomedata);
         console.log("Expense Data: ", expensedataarray);
