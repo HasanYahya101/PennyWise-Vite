@@ -31,7 +31,8 @@ import {
     HoverCardContent,
     HoverCardTrigger,
 } from "@/components/ui/hover-card";
-
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 export function Playground() {
     const { toast } = useToast();
@@ -293,6 +294,29 @@ export function Playground() {
         console.log("-------------------------------------");
     }, [incomedata, expensedataarray, allTransactions, balanceperCategory]);
 
+    function generateReportPDF() {
+        const input = document.getElementById('report-income-all');
+        html2canvas(input)
+            .then((canvas) => {
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                pdf.save("report.pdf");
+            });
+
+    }
+
+    useEffect(() => {
+        // wait for 20 seconds before generating the report
+        setTimeout(() => {
+            try {
+                generateReportPDF();
+            }
+            catch (error) {
+                console.log("Error: ", error);
+            }
+            //generateReportPDF();
+        }, 20000);
+    }, []);
+
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
             <div className="bg-gray-100 dark:bg-gray-800 px-4 py-6">
@@ -468,7 +492,7 @@ export function Playground() {
                                 </Card>
                             </div>
                         ) : (
-                            <div className="grid gap-6 min-w-[600px]">
+                            <div className="grid gap-6 min-w-[600px]" id="report-income-all">
                                 <Card>
                                     <CardHeader>
                                         <CardTitle>Balance</CardTitle>
