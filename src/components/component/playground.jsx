@@ -230,24 +230,26 @@ export function Playground() {
 
     const [balanceperCategory, setBalancePerCategory] = useState([]);
 
+    function calculateBalancePerCategory(transactions) {
+        const balancePerCategory = {};
+        transactions.forEach(transaction => {
+            const { type, category, amount } = transaction;
+            if (!balancePerCategory[category]) {
+                balancePerCategory[category] = 0;
+            }
+            if (type === "Income") {
+                balancePerCategory[category] += amount;
+            } else {
+                balancePerCategory[category] -= amount;
+            }
+        });
+        return Object.entries(balancePerCategory).map(([category, totalAmount]) => ({ category, totalAmount }));
+    }
+
     // in a use state when ever allTransactions is changed, recount the total balance of each distinct category
     useEffect(() => {
-        const categories = allTransactions.map((transaction) => transaction.category);
-        const distinctCategories = [...new Set(categories)];
-
-        const balancePerCategory = distinctCategories.map((category) => {
-            const categoryTransactions = allTransactions.filter((transaction) => transaction.category === category);
-            var totalAmount = 0;
-            if (categoryTransactions[0].type === "Income") {
-                totalAmount = categoryTransactions.reduce((acc, curr) => acc + curr.amount, 0);
-            }
-            else {
-                totalAmount = categoryTransactions.reduce((acc, curr) => acc - curr.amount, 0);
-            }
-            return { category, totalAmount };
-        });
-
-        // now sort it from highest balance to lowest balance
+        const balancePerCategory = calculateBalancePerCategory(allTransactions);
+        // Sort the balancePerCategory array by totalAmount
         const sortedBalancePerCategory = balancePerCategory.sort((a, b) => b.totalAmount - a.totalAmount);
         setBalancePerCategory(sortedBalancePerCategory);
     }, [allTransactions]);
@@ -514,7 +516,7 @@ export function Playground() {
                                     <Card>
                                         <CardHeader>
                                             <CardTitle>Income vs Expenses</CardTitle>
-                                            <CardDescription>A comparison of your total income and total expenses.</CardDescription>
+                                            <CardDescription>A comparison of your total income and total expenses (top 6 transactions).</CardDescription>
                                         </CardHeader>
                                         <CardContent>
                                             {allTransactions.length < 6 ? (
@@ -531,7 +533,7 @@ export function Playground() {
                                                                 <h1 className="text-lg font-semibold mb-2"
                                                                 >Error: No transactions found.</h1>
                                                                 <span className="text-sm"
-                                                                >A minimum of 6 transactions are needed to show the data comparisons.</span>
+                                                                >A minimum of 6 transactions are needed to show the data comparisons. This bar chart shown the top 6 transactions (income or expense).</span>
                                                             </div>
                                                         </HoverCardContent>
                                                     </HoverCard>
@@ -544,10 +546,10 @@ export function Playground() {
                                     <Card>
                                         <CardHeader>
                                             <CardTitle>Expense Breakdown</CardTitle>
-                                            <CardDescription>A breakdown of your expenses by category.</CardDescription>
+                                            <CardDescription>A breakdown of your expenses by category (top 6 categories).</CardDescription>
                                         </CardHeader>
                                         <CardContent>
-                                            {allTransactions.length < 6 ? (
+                                            {balanceperCategory.length < 6 ? (
                                                 <Card className="flex items-center justify-center h-32">
                                                     <HoverCard>
                                                         <HoverCardTrigger>
@@ -561,7 +563,7 @@ export function Playground() {
                                                                 <h1 className="text-lg font-semibold mb-2"
                                                                 >Error: No transactions found.</h1>
                                                                 <span className="text-sm"
-                                                                >A minimum of 6 category transactions are needed to show the data comparisons.</span>
+                                                                >A minimum of 6 category transactions are needed to show the data comparisons. This pie chart shows the balance of top 6 categories.</span>
                                                             </div>
                                                         </HoverCardContent>
                                                     </HoverCard>
