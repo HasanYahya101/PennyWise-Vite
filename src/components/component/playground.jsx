@@ -31,8 +31,6 @@ import {
     HoverCardContent,
     HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 
 export function Playground() {
     const { toast } = useToast();
@@ -293,29 +291,6 @@ export function Playground() {
         console.log("Top 6: ", top_six_transactions);
         console.log("-------------------------------------");
     }, [incomedata, expensedataarray, allTransactions, balanceperCategory]);
-
-    function generateReportPDF() {
-        const input = document.getElementById('report-income-all');
-        html2canvas(input)
-            .then((canvas) => {
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                pdf.save("report.pdf");
-            });
-
-    }
-
-    useEffect(() => {
-        // wait for 20 seconds before generating the report
-        setTimeout(() => {
-            try {
-                generateReportPDF();
-            }
-            catch (error) {
-                console.log("Error: ", error);
-            }
-            //generateReportPDF();
-        }, 20000);
-    }, []);
 
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
