@@ -102,6 +102,8 @@ export function Playground() {
 
     const [expenseNotes, setExpenseNotes] = useState("");
 
+    const [expensedataarray, setExpenseDataArray] = useState([]);
+
     function ExpenseClicked() {
         if (expensedata < 1) {
             toast({
@@ -158,12 +160,16 @@ export function Playground() {
         setExpenseData(0.00);
         setExpenseCategory("");
         setExpenseNotes("");
+        setExpenseDataArray([...expensedataarray, { date: todayDate, category: expenseCategory, amount: expensedata, notes: expenseNotes }]);
         return;
     }
 
     useState(() => {
+        console.log("-------------------------------------");
         console.log("Income Data: ", incomedata);
-    }, [incomedata]);
+        console.log("Expense Data: ", expensedataarray);
+        console.log("-------------------------------------");
+    }, [incomedata, expensedataarray]);
 
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr]">
