@@ -472,7 +472,7 @@ export function Playground() {
                                     </CardHeader>
                                     <CardContent>
                                         <div className="text-4xl font-bold text-blue-600">
-                                            {(balance > 0) ? `$${balance}` : `-$${Math.abs(balance)}`}
+                                            {(balance >= 0) ? `$ ${balance}` : `-$${Math.abs(balance)}`}
                                         </div>
                                     </CardContent>
                                 </Card>
