@@ -43,7 +43,7 @@ export function Playground() {
 
     const [balance, setBalance] = useState(0.00);
 
-    const [amountinput, setAmountInput] = useState(null);
+    const [amountinput, setAmountInput] = useState(0.00);
 
     const [category, setCategory] = useState("");
 
@@ -136,13 +136,13 @@ export function Playground() {
         });
 
         // clear data after adding income
-        setAmountInput(null);
+        setAmountInput(0.00);
         setCategory("");
         setNotes("");
         return;
     }
 
-    const [expensedata, setExpenseData] = useState(null);
+    const [expensedata, setExpenseData] = useState(0.00);
 
     const [expenseCategory, setExpenseCategory] = useState("");
 
@@ -220,7 +220,7 @@ export function Playground() {
         });
 
         // clear data after adding expense
-        setExpenseData(null);
+        setExpenseData(0.00);
         setExpenseCategory("");
         setExpenseNotes("");
         setExpenseDataArray([...expensedataarray, { date: todayDate, category: expenseCategory, amount: expensedata, notes: expenseNotes }]);
@@ -594,7 +594,7 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
     const [todayDate, setTodayDate] = useState(getCurrentDate());
 
     const [category_, setCategory_] = useState("");
-    const [amount_, setAmount_] = useState(null);
+    const [amount_, setAmount_] = useState(0.00);
     const [notes_, setNotes_] = useState("");
 
     const { toast } = useToast();
@@ -684,7 +684,7 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
         }
 
         // clear data after adding income
-        setAmount_(null);
+        setAmount_(0.00);
         setCategory_("");
         setNotes_("");
         setOpen(false);
