@@ -247,7 +247,9 @@ export function Playground() {
             return { category, totalAmount };
         });
 
-        setBalancePerCategory(balancePerCategory);
+        // now sort it from highest balance to lowest balance
+        const sortedBalancePerCategory = balancePerCategory.sort((a, b) => b.totalAmount - a.totalAmount);
+        setBalancePerCategory(sortedBalancePerCategory);
     }, [allTransactions]);
 
     useEffect(() => {
