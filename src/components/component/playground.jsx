@@ -18,6 +18,15 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import Filter from 'bad-words';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+
 
 export function Playground() {
     const { toast } = useToast();
@@ -101,6 +110,7 @@ export function Playground() {
             });
             return;
         }
+
 
         setIncome(income + parseFloat(amountinput));
         setBalance(balance + parseFloat(amountinput));
@@ -269,10 +279,7 @@ export function Playground() {
                 <header className="bg-gray-100 dark:bg-gray-800 px-6 py-4">
                     <div className="flex items-center justify-between">
                         <h1 className="text-xl font-semibold">Dashboard</h1>
-                        <Button size="sm" variant="outline" className="ml-4 justify-self-end">
-                            <PlusIcon className="h-4 w-4 mr-2" />
-                            Add Transaction
-                        </Button>
+                        <AddTransactionPopup />
                     </div>
                 </header>
                 <main className="flex-1 overflow-auto p-6">
@@ -420,7 +427,9 @@ export function Playground() {
                                                         <TableHead className="text-center">Notes</TableHead>
                                                     </TableRow>
                                                 </TableHeader>
-                                                <TableBody>
+                                                <TableBody className="divide-y divide-gray-200 dark:divide-gray-700 max-h-96 overflow-y-auto"
+                                                    style={{ scrollbarWidth: "none" }}
+                                                >
                                                     {allTransactions.map((transaction, index) => (
                                                         <TableRow key={index} className="text-center">
                                                             <TableCell key={index} className="text-center" >
@@ -480,6 +489,81 @@ export function Playground() {
             </div >
             <Toaster />
         </div >)
+    );
+}
+
+function AddTransactionPopup() {
+    const [open, setOpen] = useState(false);
+
+    const getCurrentDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const [todayDate, setTodayDate] = useState(getCurrentDate());
+
+    const [category_, setCategory_] = useState("");
+    const [amount_, setAmount_] = useState(0.00);
+    const [notes_, setNotes_] = useState("");
+
+    return (
+        <Dialog open={open} onOpenChange={setOpen}
+        >
+            <DialogTrigger>
+                <Button size="sm" variant="outline" className="ml-4 justify-self-end">
+                    <PlusIcon className="h-4 w-4 mr-2" />
+                    Add Transaction
+                </Button>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Add Transaction</DialogTitle>
+                    <DialogDescription>
+                        Add a new income or expense transaction. Positive amount is considered as income and negative amount is considered as expense.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4">
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="date">Date</Label>
+                            <Input id="date" name="date" required type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="category">Category</Label>
+                            <Input id="category" name="category" required type="text" placeholder="Enter category here..." value={category_} onChange={(e) => setCategory_(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="amount">Amount</Label>
+                            <Input id="amount" name="amount" required type="number" placeholder="Enter amount here..." value={amount_} onChange={(e) => setAmount_(e.target.value)}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="notes">Notes</Label>
+                            <Input id="notes" name="notes" type="text" placeholder="Enter any note here..." value={notes_} onChange={(e) => setNotes_(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 justify-self-end mt-2">
+                        <Button className="justify-self-end" onClick={() => setOpen(false)} variant="destructive"
+                        >
+                            Cancel
+                        </Button>
+                        <Button className="justify-self-start"
+                        >
+                            Add Transaction
+                        </Button>
+                    </div>
+                </div>
+
+            </DialogContent>
+        </Dialog>
     );
 }
 
@@ -711,11 +795,5 @@ function NotfoundIcon(props) {
             <line x1="12" x2="12" y1="8" y2="12" />
             <line x1="12" x2="12" y1="16" y2="16" />
         </svg>
-    );
-}
-
-function AddTransactionPopup() {
-    return (
-        <div></div>
     );
 }
