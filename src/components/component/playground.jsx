@@ -252,18 +252,15 @@ export function Playground() {
 
         const sortedBalancePerCategory = balancePerCategory.sort((a, b) => b.totalAmount - a.totalAmount);
 
-        const topSixCategories = sortedBalancePerCategory.slice(0, 6);
+        const filteredCategories = sortedBalancePerCategory.filter(category => category.totalAmount > 0);
+
+        const topSixCategories = filteredCategories.slice(0, 6);
 
         topSixCategories.forEach(category => {
             category.totalAmount = parseInt(category.totalAmount);
         });
 
-        const filteredCategories = topSixCategories.filter(category => category.totalAmount > 0);
-
-        filteredCategories.forEach(category => {
-            category.totalAmount = parseInt(category.totalAmount);
-        });
-        setBalancePerCategory(filteredCategories);
+        setBalancePerCategory(topSixCategories);
     }, [allTransactions]);
 
     const [top_six_transactions, setTopSixTransactions] = useState([]);
