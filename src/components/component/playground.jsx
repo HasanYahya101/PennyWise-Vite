@@ -321,7 +321,7 @@ export function Playground() {
         if (type === "Income") {
             return `$${amount}`;
         }
-        return `-$${Math.abs(amount)}`;
+        return `-$${amount}`;
     }
 
     function CreatePDFTables() {
