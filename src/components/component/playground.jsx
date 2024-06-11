@@ -410,14 +410,42 @@ export function Playground() {
                                                 <TableHeader>
                                                     <TableRow className="bg-gray-100 dark:bg-gray-800 justify-center text-center"
                                                     >
-                                                        <TableHead
+                                                        <TableHead className="text-center"
                                                         >Transaction Type</TableHead>
-                                                        <TableHead>Date</TableHead>
-                                                        <TableHead>Category</TableHead>
-                                                        <TableHead>Amount</TableHead>
-                                                        <TableHead>Notes</TableHead>
+                                                        <TableHead className="text-center">Date</TableHead>
+                                                        <TableHead className="text-center">Category</TableHead>
+                                                        <TableHead className="text-center">Amount</TableHead>
+                                                        <TableHead className="text-center">Notes</TableHead>
                                                     </TableRow>
                                                 </TableHeader>
+                                                <TableBody>
+                                                    {allTransactions.map((transaction, index) => (
+                                                        <TableRow key={index} className="text-center">
+                                                            <TableCell key={index} className="text-center" >
+                                                                {transaction.type}
+                                                            </TableCell>
+                                                            <TableCell key={index} className="text-center" >
+                                                                {transaction.date}
+                                                            </TableCell>
+                                                            <TableCell key={index} className="text-center" >
+                                                                {transaction.category}
+                                                            </TableCell>
+                                                            <TableCell key={index} className="text-center" >
+                                                                {transaction.amount}
+                                                            </TableCell>
+                                                            <TableCell key={index} className="text-center" >
+                                                                {transaction.notes}
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    ))}
+                                                </TableBody>
+                                                <TableFooter>
+                                                    <TableRow>
+                                                        <TableCell className="text-center">Total</TableCell>
+                                                        <TableCell colSpan={3}></TableCell>
+                                                        <TableCell className="text-center">${balance}</TableCell>
+                                                    </TableRow>
+                                                </TableFooter>
                                             </Table>
                                         )}
                                     </CardContent>
