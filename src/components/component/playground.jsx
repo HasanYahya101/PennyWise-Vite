@@ -783,7 +783,6 @@ function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance,
 }
 
 function BarChart({ top_six_transactions }) {
-
     const [maxYLimit, setMaxYLimit] = useState(null);
 
     useEffect(() => {
@@ -792,20 +791,25 @@ function BarChart({ top_six_transactions }) {
         setMaxYLimit(maxYLimit_);
     }, [top_six_transactions]);
 
+    const formatTick = (value) => {
+        if (value >= 1000000) {
+            return `${(value / 1000000).toFixed(1)}M`;
+        } else if (value >= 1000) {
+            return `${value / 1000}k`;
+        }
+        return value;
+    };
+
     return (
-        (<div className="aspect-[4/3] mt-4">
+        <div className="aspect-[4/3] mt-4">
             <ResponsiveBar
-                data={[
-                    { name: `1st`, count: top_six_transactions[0].amount },
-                    { name: `2nd`, count: top_six_transactions[1].amount },
-                    { name: `3rd`, count: top_six_transactions[2].amount },
-                    { name: `4th`, count: top_six_transactions[3].amount },
-                    { name: `5th`, count: top_six_transactions[4].amount },
-                    { name: `6th`, count: top_six_transactions[5].amount },
-                ]}
-                keys={[`count`]}
+                data={top_six_transactions.map((transaction, index) => ({
+                    name: `${index + 1}th`,
+                    count: transaction.amount,
+                }))}
+                keys={['count']}
                 indexBy="name"
-                margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
+                margin={{ top: 0, right: 0, bottom: 40, left: 50 }}
                 padding={0.3}
                 colors={["#2563eb"]}
                 axisBottom={{
@@ -814,12 +818,11 @@ function BarChart({ top_six_transactions }) {
                 }}
                 axisLeft={{
                     tickSize: 0,
-                    tickValues: 4,
                     tickPadding: 16,
-                    domain: [0, maxYLimit],
-
+                    tickValues: 5,
+                    format: formatTick,
                 }}
-                gridYValues={4}
+                gridYValues={5}
                 theme={{
                     tooltip: {
                         chip: {
@@ -840,8 +843,10 @@ function BarChart({ top_six_transactions }) {
                 tooltipLabel={({ id }) => `${id}`}
                 enableLabel={false}
                 role="application"
-                ariaLabel="A bar chart showing data" />
-        </div>)
+                ariaLabel="A bar chart showing data"
+                maxValue={maxYLimit} // Ensure the max value is set for the y-axis
+            />
+        </div>
     );
 }
 
