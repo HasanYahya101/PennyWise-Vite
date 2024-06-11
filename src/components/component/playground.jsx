@@ -546,7 +546,7 @@ export function Playground() {
                                     <Card>
                                         <CardHeader>
                                             <CardTitle>Expense Breakdown</CardTitle>
-                                            <CardDescription>A breakdown of your expenses by category (top 6 categories).</CardDescription>
+                                            <CardDescription>A breakdown of your expenses by category (top 6 distinct categories).</CardDescription>
                                         </CardHeader>
                                         <CardContent>
                                             {balanceperCategory.length < 6 ? (
