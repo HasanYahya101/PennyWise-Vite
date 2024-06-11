@@ -279,7 +279,8 @@ export function Playground() {
                 <header className="bg-gray-100 dark:bg-gray-800 px-6 py-4">
                     <div className="flex items-center justify-between">
                         <h1 className="text-xl font-semibold">Dashboard</h1>
-                        <AddTransactionPopup />
+                        <AddTransactionPopup income={income} expenses={expenses} balance={balance} setIncome={setIncome} setBalance={setBalance} setExpenses={setExpenses} setIncomeData={setIncomeData} setAllTransactions={setAllTransactions} setExpenseDataArray={setExpenseDataArray} incomedata={incomedata} expensedataarray={expensedataarray} allTransactions={allTransactions}
+                        />
                     </div>
                 </header>
                 <main className="flex-1 overflow-auto p-6">
@@ -492,7 +493,7 @@ export function Playground() {
     );
 }
 
-function AddTransactionPopup() {
+function AddTransactionPopup({ income, expenses, balance, setIncome, setBalance, setExpenses, setIncomeData, setAllTransactions, setExpenseDataArray, incomedata, expensedataarray, allTransactions }) {
     const [open, setOpen] = useState(false);
 
     const getCurrentDate = () => {
@@ -508,6 +509,87 @@ function AddTransactionPopup() {
     const [category_, setCategory_] = useState("");
     const [amount_, setAmount_] = useState(0.00);
     const [notes_, setNotes_] = useState("");
+
+    const { toast } = useToast();
+
+    const AddClicked = () => {
+        if (amount_ === 0) {
+            toast({
+                title: "Error:",
+                description: "Please enter a valid amount in the input. Amount must not be zero.",
+            })
+            return;
+        }
+        else if (category_ === "") {
+            toast({
+                title: "Error:",
+                description: "Category cannot be empty. Please enter a valid category.",
+            })
+            return;
+        }
+        else if (notes_ === "") {
+            toast({
+                title: "Error:",
+                description: "Notes cannot be empty. Please enter a valid note.",
+            })
+            return;
+        }
+        else if (notes_.length > 12) {
+            toast({
+                title: "Error:",
+                description: "Notes cannot be more than 12 characters. Please enter a valid note.",
+            })
+            return;
+        }
+        else if (amount_ > 1000000 || amount_ < -1000000) {
+            toast({
+                title: "Error:",
+                description: "Amount cannot be more than 1,000,000 or less than -1,000,000. Please enter a valid amount.",
+            })
+            return;
+        }
+        else if (category_.length > 12) {
+            toast({
+                title: "Error:",
+                description: "Category cannot be more than 12 characters. Please enter a valid category.",
+            })
+            return;
+        }
+
+        const filter = new Filter();
+        if (filter.isProfane(notes_) || filter.isProfane(category_)) {
+            toast({
+                title: "Error:",
+                description: "Please enter a valid note and category. Profanity is not allowed.",
+            });
+            return;
+        }
+
+        if (amount_ > 0) { // positive amount is considered as income
+
+            setIncome(income + parseFloat(amount_));
+            setBalance(balance + parseFloat(amount_));
+            setIncomeData([...incomedata, { date: todayDate, category: category_, amount: amount_, notes: notes_ }]);
+            setAllTransactions([...allTransactions, { type: "Income", date: todayDate, category: category_, amount: amount_, notes: notes_ }]);
+        }
+        else { // negative amount is considered as expense
+            setExpenses(expenses + parseFloat(amount_));
+            setBalance(balance - parseFloat(amount_));
+            setExpenseDataArray([...expensedataarray, { date: todayDate, category: category_, amount: amount_, notes: notes_ }]);
+            setAllTransactions([...allTransactions, { type: "Expense", date: todayDate, category: category_, amount: amount_, notes: notes_ }]);
+        }
+
+        toast({
+            title: "Success:",
+            description: "Income added successfully.",
+        });
+
+        // clear data after adding income
+        setAmount_(0.00);
+        setCategory_("");
+        setNotes_("");
+        return;
+    }
 
     return (
         <Dialog open={open} onOpenChange={setOpen}
