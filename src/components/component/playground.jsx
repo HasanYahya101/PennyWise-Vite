@@ -332,7 +332,8 @@ export function Playground() {
                                                         />
                                                     </div>
                                                 </div>
-                                                <Button className="justify-self-end" type="submit">
+                                                <Button className="justify-self-end" type="submit" onClick={ExpenseClicked}
+                                                >
                                                     Add Expense
                                                 </Button>
                                             </div>
