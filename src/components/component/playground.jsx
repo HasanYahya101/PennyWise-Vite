@@ -238,7 +238,7 @@ export function Playground() {
         const balancePerCategory = distinctCategories.map((category) => {
             const categoryTransactions = allTransactions.filter((transaction) => transaction.category === category);
             var totalAmount = 0;
-            if (allTransactions.type === "Income") {
+            if (categoryTransactions[0].type === "Income") {
                 totalAmount = categoryTransactions.reduce((acc, curr) => acc + curr.amount, 0);
             }
             else {
