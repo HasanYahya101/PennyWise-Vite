@@ -265,7 +265,7 @@ export function Playground() {
                     <div className="flex items-center justify-between">
                         <h1 className="text-xl font-semibold">Dashboard</h1>
                         <Button size="sm" variant="outline">
-                            <PlusIcon className="h-4 w-4" />
+                            <PlusIcon className="h-4 w-4 mr-2" />
                             Add Transaction
                         </Button>
                     </div>
