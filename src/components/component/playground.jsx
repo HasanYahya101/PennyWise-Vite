@@ -582,7 +582,8 @@ export function Playground() {
                                                 </Card>
                                             ) : (
 
-                                                <PieChart className="aspect-square" />
+                                                <PieChart className="aspect-square" balanceperCategory={balanceperCategory}
+                                                />
                                             )}
                                         </CardContent>
                                     </Card>
@@ -817,17 +818,17 @@ function BarChart(props) {
     );
 }
 
-function PieChart() {
+function PieChart({ balanceperCategory }) {
     return (
         (<div className="aspect-square">
             <ResponsivePie
                 data={[
-                    { id: "Jan", value: 111 },
-                    { id: "Feb", value: 157 },
-                    { id: "Mar", value: 129 },
-                    { id: "Apr", value: 150 },
-                    { id: "May", value: 119 },
-                    { id: "Jun", value: 72 },
+                    { id: balanceperCategory[0].category, value: balanceperCategory[0].totalAmount },
+                    { id: balanceperCategory[1].category, value: balanceperCategory[1].totalAmount },
+                    { id: balanceperCategory[2].category, value: balanceperCategory[2].totalAmount },
+                    { id: balanceperCategory[3].category, value: balanceperCategory[3].totalAmount },
+                    { id: balanceperCategory[4].category, value: balanceperCategory[4].totalAmount },
+                    { id: balanceperCategory[5].category, value: balanceperCategory[5].totalAmount },
                 ]}
                 sortByValue
                 margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
