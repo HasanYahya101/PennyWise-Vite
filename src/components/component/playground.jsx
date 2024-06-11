@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button"
-import { useState } from "react"
-import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { ResponsiveBar } from "@nivo/bar"
-import { ResponsivePie } from "@nivo/pie"
-import { Toaster } from "@/components/ui/toaster"
-import { useToast } from "@/components/ui/use-toast"
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { ResponsiveBar } from "@nivo/bar";
+import { ResponsivePie } from "@nivo/pie";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/components/ui/use-toast";
 
 export function Playground() {
     const { toast } = useToast();
@@ -93,6 +93,71 @@ export function Playground() {
         setAmountInput(0.00);
         setCategory("");
         setNotes("");
+        return;
+    }
+
+    const [expensedata, setExpenseData] = useState(0.00);
+
+    const [expenseCategory, setExpenseCategory] = useState("");
+
+    const [expenseNotes, setExpenseNotes] = useState("");
+
+    function ExpenseClicked() {
+        if (expensedata < 1) {
+            toast({
+                title: "Error:",
+                description: "Please enter a valid amount in the input. Amount must be equal or greater than 1.",
+            })
+            return;
+        }
+        else if (expenseCategory === "") {
+            toast({
+                title: "Error:",
+                description: "Category cannot be empty. Please enter a valid category.",
+            })
+            return;
+        }
+        else if (expenseNotes === "") {
+            toast({
+                title: "Error:",
+                description: "Notes cannot be empty. Please enter a valid note.",
+            })
+            return;
+        }
+        else if (expenseNotes.length > 12) {
+            toast({
+                title: "Error:",
+                description: "Notes cannot be more than 12 characters. Please enter a valid note.",
+            })
+            return;
+        }
+        else if (expensedata > 1000000) {
+            toast({
+                title: "Error:",
+                description: "Amount cannot be more than 1,000,000. Please enter a valid amount.",
+            })
+            return;
+        }
+        else if (expenseCategory.length > 12) {
+            toast({
+                title: "Error:",
+                description: "Category cannot be more than 12 characters. Please enter a valid category.",
+            })
+            return;
+        }
+
+        setExpenses(expenses + parseFloat(expensedata));
+        setBalance(balance - parseFloat(expensedata));
+
+        toast({
+            title: "Success:",
+            description: "Expense added successfully.",
+        });
+
+        // clear data after adding expense
+        setExpenseData(0.00);
+        setExpenseCategory("");
+        setExpenseNotes("");
         return;
     }
 
@@ -246,21 +311,25 @@ export function Playground() {
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-2">
                                                         <Label htmlFor="date">Date</Label>
-                                                        <Input id="date" name="date" required type="date" />
+                                                        <Input id="date" name="date" required type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
+                                                        />
                                                     </div>
                                                     <div className="space-y-2">
                                                         <Label htmlFor="category">Category</Label>
-                                                        <Input id="category" name="category" required type="text" />
+                                                        <Input id="category" name="category" required type="text" value={expenseCategory} onChange={(e) => setExpenseCategory(e.target.value)} placeholder="Enter category here..."
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-2">
                                                         <Label htmlFor="amount">Amount</Label>
-                                                        <Input id="amount" name="amount" required type="number" />
+                                                        <Input id="amount" name="amount" required type="number" onChange={(e) => setExpenseData(e.target.value)} value={expensedata} placeholder="Enter amount here..."
+                                                        />
                                                     </div>
                                                     <div className="space-y-2">
                                                         <Label htmlFor="notes">Notes</Label>
-                                                        <Input id="notes" name="notes" type="text" />
+                                                        <Input id="notes" name="notes" type="text" value={expenseNotes} onChange={(e) => setExpenseNotes(e.target.value)} placeholder="Enter any important note here..."
+                                                        />
                                                     </div>
                                                 </div>
                                                 <Button className="justify-self-end" type="submit">
