@@ -219,7 +219,6 @@ export function Playground() {
             description: "Expense added successfully.",
         });
 
-        // clear data after adding expense
         setExpenseData(0.00);
         setExpenseCategory("");
         setExpenseNotes("");
@@ -240,7 +239,7 @@ export function Playground() {
             if (type === "Income") {
                 balancePerCategory[category] += amount;
             } else {
-                balancePerCategory[category] -= amount;
+                balancePerCategory[category] += amount;
             }
         });
         return Object.entries(balancePerCategory).map(([category, totalAmount]) => ({ category, totalAmount }));
@@ -248,19 +247,27 @@ export function Playground() {
 
     // in a use state when ever allTransactions is changed, recount the total balance of each distinct category
     useEffect(() => {
-        const balancePerCategory = calculateBalancePerCategory(allTransactions);
+        const expenseBalancePerCategory = calculateBalancePerCategory(allTransactions.filter(transaction => transaction.type === "Expense"));
 
-        const sortedBalancePerCategory = balancePerCategory.sort((a, b) => b.totalAmount - a.totalAmount);
+        // sort from amount highest to lowest
+        const sortedExpenseBalancePerCategory = expenseBalancePerCategory.sort((a, b) => b.totalAmount - a.totalAmount);
 
-        const filteredCategories = sortedBalancePerCategory.filter(category => category.totalAmount > 0);
+        if (sortedExpenseBalancePerCategory.length > 6) {
+            // get the top 6 categories
+            const sorted = sortedExpenseBalancePerCategory.slice(0, 6);
+            // parse int
+            sorted.forEach(category => {
+                category.totalAmount = parseInt(category.totalAmount);
+            });
+            setBalancePerCategory(sorted);
+        }
 
-        const topSixCategories = filteredCategories.slice(0, 6);
-
-        topSixCategories.forEach(category => {
+        // parse int
+        expenseBalancePerCategory.forEach(category => {
             category.totalAmount = parseInt(category.totalAmount);
         });
 
-        setBalancePerCategory(topSixCategories);
+        setBalancePerCategory(sortedExpenseBalancePerCategory);
     }, [allTransactions]);
 
     const [top_six_transactions, setTopSixTransactions] = useState([]);
