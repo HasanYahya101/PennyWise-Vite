@@ -611,7 +611,7 @@ export function Playground() {
                                     <Card>
                                         <CardHeader>
                                             <CardTitle>Income vs Expenses</CardTitle>
-                                            <CardDescription>A comparison of your total income and total expenses (top 6 transactions). The red bar represents expense and blue bar represents income.</CardDescription>
+                                            <CardDescription>A comparison of your total income and total expenses (top 6 transactions). The red bar represents expense and green bar represents income.</CardDescription>
                                         </CardHeader>
                                         <CardContent className="mb-2"
                                         >
@@ -875,7 +875,7 @@ function BarChart({ top_six_transactions }) {
 
     const getColor = (bar) => {
         const transaction = top_six_transactions[bar.index];
-        return transaction.type === "Income" ? "#2563eb" : "#dc2626";
+        return transaction.type === "Income" ? "#16a34a" : "#dc2626";
     };
 
     return (
