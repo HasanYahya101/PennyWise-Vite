@@ -360,7 +360,7 @@ export function Playground() {
 
     return (
         (<div className="grid min-h-screen w-full grid-cols-[260px_1fr] flex-1">
-            <div className="bg-gray-100 dark:bg-gray-800 px-4 py-6 flex-1">
+            <div className="bg-gray-100 dark:bg-gray-800 px-4 py-6 flex-1 h-full">
                 <div className="flex h-full flex-col gap-6">
                     <div className="flex items-center gap-2 ml-6">
                         <WalletIcon className="h-6 w-6" />
@@ -418,7 +418,7 @@ export function Playground() {
                 </div>
             </div>
 
-            <div className="flex flex-1 flex-col">
+            <div className="flex flex-1 flex-col h-full">
                 <header className="bg-gray-100 dark:bg-gray-800 px-6 py-4">
                     <div className="flex items-center justify-between">
                         <h1 className="text-xl font-semibold">Dashboard</h1>
