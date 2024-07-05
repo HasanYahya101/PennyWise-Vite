@@ -426,7 +426,7 @@ export function Playground() {
                         />
                     </div>
                 </header>
-                <main className="flex-1 overflow-auto p-6 h-full">
+                <main className="overflow-auto p-6 h-full">
                     {pageName === "Income" ?
                         (
                             <div className="grid flex-1 gap-6 min-w-[600px]">
