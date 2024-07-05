@@ -359,14 +359,14 @@ export function Playground() {
     }
 
     return (
-        (<div className="flex-1 grid h-full min-h-screen w-full grid-cols-[260px_1fr]">
-            <div className="bg-gray-100 dark:bg-gray-800 px-4 py-6 h-full">
-                <div className="flex h-full flex-col gap-6">
+        (<div className="flex-1 grid h-full max-h-full min-h-screen w-full grid-cols-[260px_1fr]">
+            <div className="flex-1 bg-gray-100 dark:bg-gray-800 px-4 py-6 h-full">
+                <div className="flex flex-1 h-full flex-col gap-6">
                     <div className="flex items-center gap-2 ml-6">
                         <WalletIcon className="h-6 w-6" />
                         <span className="text-lg font-semibold">Expense Tracker</span>
                     </div>
-                    <nav className="flex flex-col gap-2">
+                    <nav className="flex flex-1 flex-col gap-2">
                         {pageName !== "Income" ? (
                             <Button variant="ghost" onClick={() => setPageName("Income")}
                                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -418,7 +418,7 @@ export function Playground() {
                 </div>
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-1 flex-col">
                 <header className="bg-gray-100 dark:bg-gray-800 px-6 py-4">
                     <div className="flex items-center justify-between">
                         <h1 className="text-xl font-semibold">Dashboard</h1>
@@ -429,7 +429,7 @@ export function Playground() {
                 <main className="flex-1 overflow-auto p-6 h-full">
                     {pageName === "Income" ?
                         (
-                            <div className="grid gap-6 min-w-[600px]">
+                            <div className="grid flex-1 gap-6 min-w-[600px]">
                                 <Card>
                                     <CardHeader>
                                         <CardTitle>Total Income</CardTitle>
@@ -481,7 +481,7 @@ export function Playground() {
                                 </Card>
                             </div>
                         ) : pageName === "Expenses" ? (
-                            <div className="grid gap-6 min-w-[600px]">
+                            <div className="grid flex-1 gap-6 min-w-[600px]">
                                 <Card>
                                     <CardHeader>
                                         <CardTitle>Total Expenses</CardTitle>
@@ -533,7 +533,7 @@ export function Playground() {
                                 </Card>
                             </div>
                         ) : (
-                            <div className="grid gap-6 min-w-[600px]" id="report-income-all">
+                            <div className="grid flex-1 gap-6 min-w-[600px]" id="report-income-all">
                                 <Card>
                                     <CardHeader>
                                         <CardTitle>Balance</CardTitle>
