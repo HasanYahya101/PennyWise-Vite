@@ -359,8 +359,8 @@ export function Playground() {
     }
 
     return (
-        (<div className="grid h-full min-h-screen w-full grid-cols-[260px_1fr]">
-            <div className="bg-gray-100 dark:bg-gray-800 px-4 py-6 h-[100vh]">
+        (<div className="flex-1 grid h-full min-h-screen w-full grid-cols-[260px_1fr]">
+            <div className="bg-gray-100 dark:bg-gray-800 px-4 py-6 h-full">
                 <div className="flex h-full flex-col gap-6">
                     <div className="flex items-center gap-2 ml-6">
                         <WalletIcon className="h-6 w-6" />
@@ -426,7 +426,7 @@ export function Playground() {
                         />
                     </div>
                 </header>
-                <main className="flex-1 overflow-auto p-6">
+                <main className="flex-1 overflow-auto p-6 h-full">
                     {pageName === "Income" ?
                         (
                             <div className="grid gap-6 min-w-[600px]">
