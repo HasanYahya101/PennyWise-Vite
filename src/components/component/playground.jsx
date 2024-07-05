@@ -359,7 +359,7 @@ export function Playground() {
     }
 
     return (
-        (<div className="flex-1 grid h-full max-h-full min-h-screen w-full grid-cols-[260px_1fr]">
+        (<div className="flex-1 grid h-full max-h-full w-full grid-cols-[260px_1fr]">
             <div className="flex-1 bg-gray-100 dark:bg-gray-800 px-4 py-6 h-full">
                 <div className="flex flex-1 h-full flex-col gap-6">
                     <div className="flex items-center gap-2 ml-6">
