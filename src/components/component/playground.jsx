@@ -31,6 +31,12 @@ import {
     HoverCardContent,
     HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
 
@@ -450,8 +456,22 @@ export function Playground() {
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-2">
                                                         <Label htmlFor="date">Date</Label>
-                                                        <Input id="date" name="date" require type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
-                                                        />
+                                                        <TooltipProvider>
+                                                            <Tooltip>
+                                                                <TooltipTrigger className="w-full">
+                                                                    <Input id="date" name="date" require type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
+                                                                    />
+                                                                </TooltipTrigger>
+                                                                <TooltipContent>
+                                                                    <div className="p-2">
+                                                                        <h1 className="text-lg font-semibold mb-2"
+                                                                        >Date</h1>
+                                                                        <span className="text-sm"
+                                                                        >The date of the transaction. This field is read-only (current date).</span>
+                                                                    </div>
+                                                                </TooltipContent>
+                                                            </Tooltip>
+                                                        </TooltipProvider>
                                                     </div>
                                                     <div className="space-y-2">
                                                         <Label htmlFor="category">Category</Label>
@@ -502,8 +522,22 @@ export function Playground() {
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-2">
                                                         <Label htmlFor="date">Date</Label>
-                                                        <Input id="date" name="date" require type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
-                                                        />
+                                                        <TooltipProvider>
+                                                            <Tooltip>
+                                                                <TooltipTrigger className="w-full">
+                                                                    <Input id="date" name="date" require type="date" value={todayDate} readonly className="text-black bg-white border border-gray-300 rounded px-3 py-2 pointer-events-none"
+                                                                    />
+                                                                </TooltipTrigger>
+                                                                <TooltipContent>
+                                                                    <div className="p-2">
+                                                                        <h1 className="text-lg font-semibold mb-2"
+                                                                        >Date</h1>
+                                                                        <span className="text-sm"
+                                                                        >The date of the transaction. This field is read-only (current date).</span>
+                                                                    </div>
+                                                                </TooltipContent>
+                                                            </Tooltip>
+                                                        </TooltipProvider>
                                                     </div>
                                                     <div className="space-y-2">
                                                         <Label htmlFor="category">Category</Label>
